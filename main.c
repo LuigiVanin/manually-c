@@ -1,0 +1,39 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include "lib/lib.h"
+#include "util.h"
+
+int main()
+{
+  int *x = NULL;
+  int arraySize = 10;
+
+  Array a = NewArray(8);
+
+  printf("\nCapacity: %d\n", a.capacity);
+
+  x = (int *)calloc(arraySize, sizeof(int));
+
+  if (x == NULL)
+  {
+    fprintf(stderr, "Memory allocation failed\n");
+    return 1;
+  }
+
+  for (int i = 0; i < arraySize; i++)
+  {
+    printf("Number at %d equals to %d\n", i, x[i]);
+  }
+
+  printf("\n");
+  InsertAt(x, 3, 1000);
+  printf("\n\n");
+
+  for (int i = 0; i < arraySize; i++)
+  {
+    printf("Number at %d equals to %d\n", i, x[i]);
+  }
+
+  printf("\nFinished Program!\n");
+  return 0;
+}
