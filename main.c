@@ -9,6 +9,9 @@ int main()
   int arraySize = 10;
 
   Array a = NewArray(8);
+  ArrayList b = NewArrayListT(int, 18);
+
+  printf("Type size %zu: \n", b.sizeType);
 
   printf("\nCapacity: %d\n", a.capacity);
 
