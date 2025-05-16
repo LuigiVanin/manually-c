@@ -1,11 +1,11 @@
 #ifndef LIB_H
 #define LIB_H
 
-#define _NewArrayListTemplate1(type, capacity) \
-    NewArrayList(sizeof(type), capacity)
+#define _NewArrayListTemplate1(T, capacity) \
+    NewArrayList(sizeof(T), capacity)
 
-#define _NewArrayListTemplate2(type) \
-    NewArrayList(sizeof(type), 8)
+#define _NewArrayListTemplate2(T) \
+    NewArrayList(sizeof(T), 8)
 
 #define _GET_NEW_ARRAY_MACRO(_1, _2, NAME, ...) NAME
 
@@ -40,10 +40,11 @@ typedef struct
     int capacity;
     int length;
     void *data;
-    size_t sizeT;
-    char *tName;
+    size_t element_size;
 } ArrayList;
 
-ArrayList NewArrayList(size_t sizeType, int capacity);
+ArrayList NewArrayList(size_t element_size, int capacity);
+void PushItem(ArrayList *list, const void *value);
+void ResizeList(ArrayList *list);
 
 #endif

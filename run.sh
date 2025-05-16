@@ -27,7 +27,12 @@ build_lib() {
 build() {
     
     echo "Building..."
-    clang $flags -o ./build/playground main.c util.c -L./build/_deps -llib
+    clang $flags -o ./build/playground main.c util.c \
+        -I./extern/raylib/build/raylib/include \
+        -L./extern/raylib/build/raylib \
+        -lraylib -lm -lpthread -ldl -lX11 \
+        -L./build/_deps \
+        -llib 
     echo -e "Build Completed! \n"
 }
 
