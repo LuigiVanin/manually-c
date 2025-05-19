@@ -27,7 +27,7 @@ build_lib() {
 build() {
     
     echo "Building..."
-    clang $flags -o ./build/playground main.c util.c \
+    clang $flags -o ./build/manually-c main.c util.c \
         -I./extern/raylib/build/raylib/include \
         -L./extern/raylib/build/raylib \
         -lraylib -lm -lpthread -ldl -lX11 \
@@ -40,7 +40,7 @@ run() {
     echo "Running..."
     echo -e "------------------------\n"
     
-    LD_LIBRARY_PATH=./build/_deps ./build/playground
+    LD_LIBRARY_PATH=./build/_deps ./build/manually-c
 }
 
 if [ "$1" == "--build" ]; then

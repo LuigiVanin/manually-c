@@ -1,6 +1,8 @@
 #ifndef LIB_H
 #define LIB_H
 
+#include <stddef.h>
+
 #define _newArrayListOverload1(T, capacity) \
     NewArrayListInternal(sizeof(T), capacity)
 
@@ -59,6 +61,15 @@
 #define GetAt(T, LIST, INDEX) \
     (*(T *)GetAtInternal(LIST, INDEX));
 
+/**
+ * @brief Removes and returns the last item from the specified list.
+ *
+ * This macro calls the internal function PopItemInternal to perform the operation.
+ *
+ * @param LIST The list from which to pop the last item.
+ */
+#define PopItem(LIST) PopItemInternal(LIST)
+
 typedef struct
 {
     size_t capacity;
@@ -68,8 +79,9 @@ typedef struct
 } ArrayList;
 
 ArrayList NewArrayListInternal(size_t element_size, size_t capacity);
-void PushItemInternal(ArrayList *list, const void *value);
-void ResizeList(ArrayList *list);
-void *GetAtInternal(ArrayList list, size_t index);
+void PushItemInternal(ArrayList *this, const void *value);
+void ResizeList(ArrayList *this);
+void *GetAtInternal(ArrayList this, size_t index);
+void PopItemInternal(ArrayList *this);
 
 #endif

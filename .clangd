@@ -1,0 +1,21 @@
+If:
+  PathMatch: .*\.h
+CompileFlags:
+  Add: [-x, c]
+---
+CompileFlags:
+  Add: [
+    "-std=c23",
+    "-g",
+    "-Wall",
+    "-Wextra",
+    "-I./extern/raylib/build/raylib/include",
+    "-L./extern/raylib/build/raylib",
+    "-L./build/_deps",
+    "-lraylib",
+    "-lm",
+    "-lpthread",
+    "-ldl",
+    "-lX11",
+    "-llib"
+  ]
