@@ -9,12 +9,19 @@ int main()
   int *x = NULL;
   int arraySize = 10;
 
-  Array a = NewArray(8);
-  ArrayList b = NewArrayListT(int, 18);
+  ArrayList b = NewArrayList(int, 18);
+
+  int value = 90;
+
+  PushItemInternal(&b, &value);
+  PushItem(&b, value);
+  PushItem(&b, 20);
+
+  int y = GetAt(int, b, 2);
 
   printf("Type size %zu: \n", b.element_size);
 
-  printf("\nCapacity: %d\n", a.capacity);
+  printf("Value %d: \n", y);
 
   x = (int *)calloc(arraySize, sizeof(int));
 

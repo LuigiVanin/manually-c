@@ -3,38 +3,37 @@
 #include "lib.h"
 #include <string.h>
 
-Array NewArray(int size)
+ArrayList NewArrayListInternal(size_t element_size, size_t capacity)
 {
-    Array arr = {
-        .data = (int *)calloc(size, sizeof(int)),
-        .capacity = size,
-        .length = 0,
-    };
+    if (element_size <= 0)
+    {
+        fprintf(stderr, "Error: `element_size` must be greater than 0.");
+        element_size = 1; // default association to a char.
+    }
 
-    return arr;
-}
+    if (capacity <= 0)
+    {
+        fprintf(stderr, "Error: `capacity` must be greater than 0.");
+        capacity = 8;
+    }
 
-ArrayList NewArrayList(size_t element_size, int capacity)
-{
-    ArrayList d_arr = {
+    ArrayList arr_list = {
         .capacity = capacity,
         .element_size = element_size,
         .length = 0,
         .data = (void *)malloc(element_size * capacity),
     };
-    return d_arr;
+
+    return arr_list;
 }
 
-void PushItem(ArrayList *self, const void *value)
+void PushItemInternal(ArrayList *self, const void *value)
 {
     if (self->capacity <= 0)
         self->capacity = 1;
 
     if (self->length >= self->capacity)
         ResizeList(self);
-
-    // Array starting point = self->data
-    // Array current point = startiing point + (self->length * self->element_size)
 
     /**
      * NOTE: Why use char* instead of void* for address manipulation?
@@ -43,6 +42,7 @@ void PushItem(ArrayList *self, const void *value)
      *       the behaviour, is recommended to cast the void pointer to a char* that has a well defined bit length
      * */
     char *dest = (char *)self->data + (self->length * self->element_size);
+
     memcpy(dest, value, self->element_size);
 
     self->length++;
@@ -51,4 +51,16 @@ void PushItem(ArrayList *self, const void *value)
 void ResizeList(ArrayList *list)
 {
     fprintf(stderr, "TODO: Not Implemented yet");
+}
+
+void *GetAtInternal(ArrayList self, size_t index)
+{
+    if (index >= self.length)
+    {
+        fprintf(stderr, "Error: Index %zu out of bounds for ArrayList with length %d.\n", index, (int)self.length);
+        // Decide on error handling: return NULL, exit, assert, etc.
+        return NULL;
+    }
+
+    return (char *)self.data + (index * self.element_size);
 }

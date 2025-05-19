@@ -6,7 +6,7 @@ if [ ! -d "./build/_deps" ]; then
     mkdir build/_deps
 fi
 
-flags="-g -Wall -Wextra"
+flags="-g -Wall -Wextra -std=c23"
 
 build_lib() {
     echo "Building library..."
