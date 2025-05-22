@@ -11,11 +11,11 @@ CompileFlags:
     "-Wextra",
     "-I./extern/raylib/build/raylib/include",
     "-L./extern/raylib/build/raylib",
-    "-L./build/_deps",
     "-lraylib",
+    "-L./build/_deps",
+    "-llib",
     "-lm",
     "-lpthread",
     "-ldl",
-    "-lX11",
-    "-llib"
+    "-lX11"
   ]

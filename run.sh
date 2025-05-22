@@ -43,17 +43,9 @@ run() {
     LD_LIBRARY_PATH=./build/_deps ./build/manually-c
 }
 
-if [ "$1" == "--build" ]; then
-    build_lib
-    build
-elif [ "$1" == "--run" ]; then
-    run
-elif [ "$1" == "--start" ] || [ -z "$1" ]; then
-    build_lib
-    build
-    run
-else
-    echo "Invalid argument. Use --build, --run, or --start."
-fi
+
+build_lib
+build
+run
 
 
