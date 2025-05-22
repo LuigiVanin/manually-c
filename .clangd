@@ -19,3 +19,8 @@ CompileFlags:
     "-ldl",
     "-lX11"
   ]
+---
+InlayHints:
+  Enabled: Yes
+  ParameterNames: No
+  DeducedTypes: YES

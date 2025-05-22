@@ -14,12 +14,12 @@ build_lib() {
     ./lib/build.sh
 
     # check if ./lib/liblib.so exists
-    if [ ! -f "./lib/liblib.so" ]; then
+    if [ ! -f "./lib/libd_array_list.so" ]; then
         echo "Library build failed!"
         exit 1
     fi
 
-    mv ./lib/liblib.so ./build/_deps/liblib.so
+    mv ./lib/libd_array_list.so ./build/_deps/libd_array_list.so
 
     echo -e "Library build completed!\n"
 }
@@ -32,7 +32,7 @@ build() {
         -L./extern/raylib/build/raylib \
         -lraylib -lm -lpthread -ldl -lX11 \
         -L./build/_deps \
-        -llib 
+        -ld_array_list 
     echo -e "Build Completed! \n"
 }
 

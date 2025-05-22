@@ -1,5 +1,5 @@
-#ifndef LIB_H
-#define LIB_H
+#ifndef D_ARRAY_LIST_H
+#define D_ARRAY_LIST_H
 
 #include <stddef.h>
 
