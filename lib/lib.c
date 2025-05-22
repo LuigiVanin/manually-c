@@ -46,6 +46,26 @@ void PushItemInternal(ArrayList *this, const void *value) {
   this->length++;
 }
 
+void InsertItemAtInternal(ArrayList *this, size_t index, const void *value) {
+  if (index >= this->length) {
+    fprintf(stderr, "Error: array list not initialized properly");
+    return;
+  }
+
+  if (this->length >= this->capacity)
+    ResizeList(this);
+
+  char *dest = (char *)this->data + (index * this->element_size);
+
+  memmove(dest + this->element_size, //
+          dest,                      //
+          (this->length - index) * this->element_size);
+  // memcpy(list_replace, dest, (this->length - index) * this->element_size);
+  memcpy(dest, value, this->element_size);
+
+  this->length++;
+}
+
 void ResizeList(ArrayList *this) {
   if (this->length >= this->capacity) {
     void *target =
