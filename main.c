@@ -11,10 +11,35 @@ int main() {
   ArrayList b = NewArrayList(int, 18);
 
   int value = 90;
+  int value2 = 10909;
 
   PushItemInternal(&b, &value);
   PushItem(&b, value);
   PushItem(&b, 20);
+  PushItem(&b, 10);
+  PushItem(&b, 30);
+  PushItem(&b, value);
+  PushItem(&b, value2);
+  PushItem(&b, 80);
+  PushItem(&b, 30);
+  PushItem(&b, 60);
+  PushItem(&b, 30);
+  PushItem(&b, 20);
+  PushItem(&b, 10);
+
+  print_list((int *)b.data, b.length);
+
+  PopItem(&b);
+  PopItem(&b);
+  PopItem(&b);
+
+  print_list((int *)b.data, b.length);
+
+  RemoveAt(&b, 1);
+  RemoveAt(&b, 1);
+  // RemoveAt(&b, 3);
+
+  print_list((int *)b.data, b.length);
 
   int y = GetAt(int, b, 2);
 

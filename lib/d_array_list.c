@@ -103,3 +103,25 @@ void PopItemInternal(ArrayList *this) {
   }
   this->length--;
 }
+
+void RemoveItemAtInternal(ArrayList *this, size_t index) {
+  if (this == NULL) {
+    fprintf(stderr, "Error: array list not initialized properly");
+    return;
+  }
+
+  if (index < 0 || index >= this->length) {
+    fprintf(stderr,
+            "Error: Index %zu out of bounds for ArrayList with length %d.\n",
+            index, (int)this->length);
+  }
+
+  char *dest = (char *)this->data + (index * this->element_size);
+
+  memmove(                                        //
+      dest,                                       //
+      dest + this->element_size,                  //
+      (this->length - index) * this->element_size //
+  );
+  this->length--;
+}

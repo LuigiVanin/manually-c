@@ -35,15 +35,15 @@
  * This macro appends a new item to the end of the specified array list,
  * automatically resizing the underlying storage if necessary.
  *
- * @param LIST Pointer to the array list.
+ * @param THIS Pointer to the array list.
  * @param VALUE The item to be added to the list.
  *
  * @note The list must have been initialized using NewArrayListT.
  */
-#define PushItem(LIST, VALUE)                                                  \
+#define PushItem(THIS, VALUE)                                                  \
   do {                                                                         \
     typeof(VALUE) __temp_value = (VALUE);                                      \
-    PushItemInternal(LIST, &__temp_value);                                     \
+    PushItemInternal(THIS, &__temp_value);                                     \
   } while (0)
 
 /**
@@ -53,17 +53,17 @@
  * index, shifting subsequent elements to the right. The underlying storage is
  * automatically resized if necessary.
  *
- * @param LIST Pointer to the array list.
+ * @param THIS Pointer to the array list.
  * @param INDEX The position at which to insert the new item.
  * @param VALUE The item to be inserted into the list.
  *
  * @note The list must have been initialized using NewArrayList.
  * @note If INDEX is greater than the current length, the behavior is undefined.
  */
-#define InsertItemAt(LIST, INDEX, VALUE)                                       \
+#define InsertItemAt(THIS, INDEX, VALUE)                                       \
   do {                                                                         \
     typeof(VALUE) __temp_value_index = (VALUE);                                \
-    InsertItemAtInternal(LIST, INDEX, &__temp_value_index);                    \
+    InsertItemAtInternal(THIS, INDEX, &__temp_value_index);                    \
   } while (0)
 
 /**
@@ -78,7 +78,7 @@
  * @note The returned ArrayList must be freed using the appropriate destroy
  * function to avoid memory leaks.
  */
-#define GetAt(T, LIST, INDEX) (*(T *)GetAtInternal(LIST, INDEX));
+#define GetAt(T, THIS, INDEX) (*(T *)GetAtInternal(THIS, INDEX));
 
 /**
  * @brief Removes and returns the last item from the specified list.
@@ -86,9 +86,11 @@
  * This macro calls the internal function PopItemInternal to perform the
  * operation.
  *
- * @param LIST The list from which to pop the last item.
+ * @param THIS The list from which to pop the last item.
  */
-#define PopItem(LIST) PopItemInternal(LIST)
+#define PopItem(THIS) PopItemInternal(THIS)
+
+#define RemoveAt(THIS, INDEX) RemoveItemAtInternal(THIS, INDEX)
 
 typedef struct {
   size_t capacity;
@@ -109,4 +111,5 @@ void *GetAtInternal(ArrayList this, size_t index);
 
 void PopItemInternal(ArrayList *this);
 
+void RemoveItemAtInternal(ArrayList *this, size_t index);
 #endif
