@@ -59,7 +59,6 @@ int main() {
   }
 
   printf("\n");
-  InsertAt(x, 3, 1000);
   printf("\n\n");
 
   for (int i = 0; i < arraySize; i++) {

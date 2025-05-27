@@ -60,7 +60,7 @@
  * @note The list must have been initialized using NewArrayList.
  * @note If INDEX is greater than the current length, the behavior is undefined.
  */
-#define InsertItemAt(THIS, INDEX, VALUE)                                       \
+#define InsertAt(THIS, INDEX, VALUE)                                           \
   do {                                                                         \
     typeof(VALUE) __temp_value_index = (VALUE);                                \
     InsertItemAtInternal(THIS, INDEX, &__temp_value_index);                    \
