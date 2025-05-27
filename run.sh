@@ -39,7 +39,6 @@ build() {
 run() {
     echo "Running..."
     echo -e "------------------------\n"
-    
     LD_LIBRARY_PATH=./build/_deps ./build/manually-c
 }
 
