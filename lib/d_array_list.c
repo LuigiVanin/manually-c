@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-ArrayList NewArrayListInternal(size_t element_size, size_t capacity) {
+ArrayList NewArrayList_(size_t element_size, size_t capacity) {
   if (element_size <= 0) {
     fprintf(stderr, "Error: `element_size` must be greater than 0.");
     element_size = 1; // default association to a char.
@@ -24,12 +24,12 @@ ArrayList NewArrayListInternal(size_t element_size, size_t capacity) {
   return arr_list;
 }
 
-void PushItemInternal(ArrayList *this, const void *value) {
+void PushItem_(ArrayList *this, const void *value) {
   if (this->capacity <= 0)
     this->capacity = 1;
 
   if (this->length >= this->capacity)
-    ResizeList(this);
+    _ResizeList(this);
 
   /**
    * NOTE: Why use char* instead of void* for address manipulation?
@@ -46,14 +46,14 @@ void PushItemInternal(ArrayList *this, const void *value) {
   this->length++;
 }
 
-void InsertItemAtInternal(ArrayList *this, size_t index, const void *value) {
+void InsertItemAt_(ArrayList *this, size_t index, const void *value) {
   if (index >= this->length) {
     fprintf(stderr, "Error: array list not initialized properly");
     return;
   }
 
   if (this->length >= this->capacity)
-    ResizeList(this);
+    _ResizeList(this);
 
   char *dest = (char *)this->data + (index * this->element_size);
 
@@ -66,7 +66,7 @@ void InsertItemAtInternal(ArrayList *this, size_t index, const void *value) {
   this->length++;
 }
 
-void ResizeList(ArrayList *this) {
+void _ResizeList(ArrayList *this) {
   if (this->length >= this->capacity) {
     void *target =
         realloc(this->data, this->element_size * (this->capacity * 2));
@@ -79,7 +79,7 @@ void ResizeList(ArrayList *this) {
   }
 }
 
-void *GetAtInternal(ArrayList this, size_t index) {
+void *GetAt_(ArrayList this, size_t index) {
   if (index >= this.length) {
     fprintf(stderr,
             "Error: Index %zu out of bounds for ArrayList with length %d.\n",
@@ -91,7 +91,7 @@ void *GetAtInternal(ArrayList this, size_t index) {
   return (char *)this.data + (index * this.element_size);
 }
 
-void PopItemInternal(ArrayList *this) {
+void PopItem_(ArrayList *this) {
   if (this == NULL) {
     fprintf(stderr, "Error: array list not initialized properly");
     return;
@@ -104,7 +104,7 @@ void PopItemInternal(ArrayList *this) {
   this->length--;
 }
 
-void RemoveItemAtInternal(ArrayList *this, size_t index) {
+void RemoveItemAt_(ArrayList *this, size_t index) {
   if (this == NULL) {
     fprintf(stderr, "Error: array list not initialized properly");
     return;

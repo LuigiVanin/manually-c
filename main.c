@@ -1,86 +1,54 @@
 #include "lib/d_array_list.h"
 #include "raylib.h"
 #include "util.h"
+#include <stddef.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 int main() {
-  int *x = NULL;
-  int arraySize = 10;
+  ArrayList list = NewArrayList(Color, 18);
 
-  ArrayList b = NewArrayList(int, 18);
+  PushItem(&list, LIGHTGRAY);
+  PushItem(&list, RED);
+  PushItem(&list, BLUE);
+  PushItem(&list, BLACK);
+  PushItem(&list, GREEN);
+  PushItem(&list, BLACK);
+  PushItem(&list, BLACK);
 
-  int value = 90;
-  int value2 = 10909;
+  print_list((int *)list.data, list.length);
 
-  PushItemInternal(&b, &value);
-  PushItem(&b, value);
-  PushItem(&b, 20);
-  PushItem(&b, 10);
-  PushItem(&b, 30);
-  PushItem(&b, value);
-  PushItem(&b, value2);
-  PushItem(&b, 80);
-  PushItem(&b, 30);
-  PushItem(&b, 60);
-  PushItem(&b, 30);
-  PushItem(&b, 20);
-  PushItem(&b, 10);
+  const int screenWidth = 800;
+  const int screenHeight = 450;
 
-  print_list((int *)b.data, b.length);
+  InitWindow(screenWidth, screenHeight, "raylib [core] example");
+  SetTargetFPS(10);
 
-  PopItem(&b);
-  PopItem(&b);
-  PopItem(&b);
+  float gap = screenWidth / (float)list.length;
+  float initialPosition = gap / 2;
 
-  print_list((int *)b.data, b.length);
+  while (!WindowShouldClose()) {
 
-  RemoveAt(&b, 1);
-  RemoveAt(&b, 1);
-  // RemoveAt(&b, 3);
+    BeginDrawing();
+    ClearBackground(RAYWHITE);
 
-  print_list((int *)b.data, b.length);
+    DrawText(                        //
+        "Clang and Raylib example!", //
+        10, 10, 19,                  //
+        BLACK                        //
+    );
 
-  int y = GetAt(int, b, 2);
+    for (size_t i = 0; i < list.length; i++) {
+      auto color = GetAt(Color, list, i);
+      DrawCircle(                      //
+          initialPosition + (i * gap), //
+          screenHeight / 2, 20,        //
+          color                        //
+      );
+    }
 
-  printf("Type size %zu: \n", b.element_size);
-
-  printf("Value %d: \n", y);
-
-  x = (int *)calloc(arraySize, sizeof(int));
-
-  if (x == NULL) {
-    fprintf(stderr, "Memory allocation failed\n");
-    return 1;
+    EndDrawing();
   }
 
-  for (int i = 0; i < arraySize; i++) {
-    printf("Number at %d equals to %d\n", i, x[i]);
-  }
-
-  printf("\n");
-  printf("\n\n");
-
-  for (int i = 0; i < arraySize; i++) {
-    printf("Number at %d equals to %d\n", i, x[i]);
-  }
-
-  printf("\nFinished Program!\n");
-
-  // const int screenWidth = 800;
-  // const int screenHeight = 450;
-
-  // InitWindow(screenWidth, screenHeight, "raylib [core] example -
-  // basicwindow"); SetTargetFPS(60);
-
-  // while (!WindowShouldClose()) {
-  //   BeginDrawing();
-  //   ClearBackground(RAYWHITE);
-  //   DrawText("Congrats! You created your first window!", 190, 200, 20,
-  //            LIGHTGRAY);
-  //   EndDrawing();
-  // }
-
-  // CloseWindow();
+  CloseWindow();
   return 0;
 }

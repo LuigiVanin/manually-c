@@ -3,10 +3,9 @@
 
 #include <stddef.h>
 
-#define _newArrayListOverload1(T, capacity)                                    \
-  NewArrayListInternal(sizeof(T), capacity)
+#define _newArrayListOverload1(T, capacity) NewArrayList_(sizeof(T), capacity)
 
-#define _newArrayListOverload2(T) NewArrayListInternal(sizeof(T), 8)
+#define _newArrayListOverload2(T) NewArrayList_(sizeof(T), 8)
 
 #define _GET_NEW_ARRAY_MACRO(_1, _2, NAME, ...) NAME
 
@@ -43,7 +42,7 @@
 #define PushItem(THIS, VALUE)                                                  \
   do {                                                                         \
     typeof(VALUE) __temp_value = (VALUE);                                      \
-    PushItemInternal(THIS, &__temp_value);                                     \
+    PushItem_(THIS, &__temp_value);                                            \
   } while (0)
 
 /**
@@ -63,7 +62,7 @@
 #define InsertAt(THIS, INDEX, VALUE)                                           \
   do {                                                                         \
     typeof(VALUE) __temp_value_index = (VALUE);                                \
-    InsertItemAtInternal(THIS, INDEX, &__temp_value_index);                    \
+    InsertItemAt_(THIS, INDEX, &__temp_value_index);                           \
   } while (0)
 
 /**
@@ -78,19 +77,28 @@
  * @note The returned ArrayList must be freed using the appropriate destroy
  * function to avoid memory leaks.
  */
-#define GetAt(T, THIS, INDEX) (*(T *)GetAtInternal(THIS, INDEX));
+#define GetAt(T, THIS, INDEX) (*(T *)GetAt_(THIS, INDEX));
 
 /**
  * @brief Removes and returns the last item from the specified list.
  *
- * This macro calls the internal function PopItemInternal to perform the
+ * This macro calls the internal function PopItem_ to perform the
  * operation.
  *
  * @param THIS The list from which to pop the last item.
  */
-#define PopItem(THIS) PopItemInternal(THIS)
+#define PopItem(THIS) PopItem_(THIS)
 
-#define RemoveAt(THIS, INDEX) RemoveItemAtInternal(THIS, INDEX)
+/**
+ * @brief Removes the specific item from the specified list.
+ *
+ * This macro calls the internal function RemoveItemAt_ to perform the
+ * operation.
+ *
+ * @param THIS The list from which to pop the last item.
+ * @param INDEX Index of the desire item to be removed.
+ */
+#define RemoveAt(THIS, INDEX) RemoveItemAt_(THIS, INDEX)
 
 typedef struct {
   size_t capacity;
@@ -99,17 +107,17 @@ typedef struct {
   size_t element_size;
 } ArrayList;
 
-ArrayList NewArrayListInternal(size_t element_size, size_t capacity);
+ArrayList NewArrayList_(size_t element_size, size_t capacity);
 
-void PushItemInternal(ArrayList *this, const void *value);
+void PushItem_(ArrayList *this, const void *value);
 
-void InsertItemAtInternal(ArrayList *this, size_t index, const void *value);
+void InsertItemAt_(ArrayList *this, size_t index, const void *value);
 
-void ResizeList(ArrayList *this);
+void _ResizeList(ArrayList *this);
 
-void *GetAtInternal(ArrayList this, size_t index);
+void *GetAt_(ArrayList this, size_t index);
 
-void PopItemInternal(ArrayList *this);
+void PopItem_(ArrayList *this);
 
-void RemoveItemAtInternal(ArrayList *this, size_t index);
+void RemoveItemAt_(ArrayList *this, size_t index);
 #endif
